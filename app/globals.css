@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 247 246 243;
+    --foreground: 28 25 23;
+    --primary: 124 92 252;
+    --primary-foreground: 255 255 255;
+    --muted: 243 242 239;
+    --muted-foreground: 107 114 128;
+    --border: 229 226 220;
+    --ring: 124 92 252;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 8 11 17;
+    --foreground: 240 237 232;
+    --primary: 124 92 252;
+    --primary-foreground: 255 255 255;
+    --muted: 19 24 32;
+    --muted-foreground: 107 114 128;
+    --border: 30 37 48;
+    --ring: 124 92 252;
+    --radius: 0.5rem;
+  }
+}
+
+@layer components {
+  .hljs {
+    background: #161b22 !important;
+    border-radius: 0.5rem;
+    padding: 1rem !important;
+    overflow-x: auto;
+  }
+  pre:has(.hljs) {
+    background: transparent !important;
+    padding: 0 !important;
+    border: 1px solid #1e2530;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  pre code:not(.hljs) {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+  .streaming-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: #7c5cfc;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: forge-blink 1.2s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .progress-track {
+    height: 6px;
+    background: #1e2530;
+    border-radius: 9999px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #7c5cfc;
+    border-radius: 9999px;
+    transition: width 600ms ease-out;
+  }
+}
