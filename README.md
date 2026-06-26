@@ -391,12 +391,4 @@ Click **"Try Demo"** on the landing page to auto-login as the demo learner with 
 
 ---
 
-## Acknowledgments
 
-Built as **Project 1 of 6** in The Prompt Academy Portfolio Strategy. This project directly mirrors the product architecture and engineering challenges of The Prompt Academy's own learning platform.
-
----
-
-## License
-
-MIT © 2024 The Prompt Academy. See [LICENSE](./LICENSE) for details.
