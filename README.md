@@ -1,6 +1,6 @@
 # LearnForge
 
-> **AI-Powered Learning Platform** — A full-stack course player with a live AI workspace. Project 1 of The Prompt Academy Portfolio.
+> **AI-Powered Learning Platform** — A full-stack course player with a live AI workspace.
 
 <div align="center">
 
@@ -37,11 +37,9 @@
 
 ## Overview
 
-LearnForge is a full-stack AI learning platform that mirrors the core product pattern of **The Prompt Academy**: a lesson on the left, a live AI workspace on the right.
+LearnForge is a full-stack AI learning platform built around a split-pane course player: a lesson on the left, a live AI workspace on the right.
 
 Learners navigate structured courses (Course → Module → Lesson). Each lesson renders MDX content on the left panel and a live NVIDIA NIM–powered AI chat workspace on the right. The workspace is pre-configured with a custom system prompt per lesson, transforming the AI into a specialized tutor for that specific task.
-
-> **Portfolio Project** — This is Project 1 of 6 in The Prompt Academy Portfolio Strategy. It directly mirrors the company's own product to demonstrate deep understanding of their specific engineering challenges: SSE streaming, split-pane layouts, per-lesson AI personas, and hierarchical progress tracking.
 
 ---
 
@@ -348,32 +346,7 @@ See `.env.example` for the complete list with descriptions and sources.
 
 ---
 
-## Deployment
 
-LearnForge is designed for **Vercel** deployment.
-
-```bash
-# 1. Push to GitHub and connect your Vercel project
-
-# 2. Set all environment variables in Vercel dashboard
-#    (do not rely on .env.local — variables must be configured in Vercel)
-
-# 3. Apply database migrations to production
-npx prisma migrate deploy
-
-# 4. Seed demo data (idempotent — safe to run multiple times)
-npx prisma db seed
-
-# 5. Push to main — Vercel auto-deploys via GitHub integration
-git push origin main
-
-# 6. Verify: smoke-test the chat endpoint
-curl -X POST https://your-app.vercel.app/api/workspace/chat \
-  -H "Content-Type: application/json" \
-  -d '{"lessonId": "...", "message": "Hello"}'
-```
-
-For the full deployment checklist (including Sentry verification, Lighthouse audits, and SPEC.md sign-off), see **SPEC.md §12**.
 
 ---
 

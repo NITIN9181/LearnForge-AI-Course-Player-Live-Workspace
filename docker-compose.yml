@@ -16,5 +16,39 @@ services:
       timeout: 5s
       retries: 5
 
+  app:
+    build:
+      context: .
+      target: dev
+    container_name: learnforge-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/learnforge
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=dev-secret-key-learnforge-32-chars-long!!
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./app:/app/app
+      - ./components:/app/components
+      - ./hooks:/app/hooks
+      - ./lib:/app/lib
+      - ./prisma:/app/prisma
+      - ./public:/app/public
+      - ./types:/app/types
+      - ./middleware.ts:/app/middleware.ts
+      - ./next.config.ts:/app/next.config.ts
+      - ./tailwind.config.ts:/app/tailwind.config.ts
+      - ./postcss.config.mjs:/app/postcss.config.mjs
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./components.json:/app/components.json
+      - ./eslint.config.mjs:/app/eslint.config.mjs
+      - ./.prettierrc:/app/.prettierrc
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   pgdata:

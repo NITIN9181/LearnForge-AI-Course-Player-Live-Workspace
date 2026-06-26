@@ -1,12 +1,9 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { compare } from "bcrypt";
-import { prisma } from "@/lib/db";
+import type { NextAuthConfig } from "next-auth";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+const config: NextAuthConfig = {
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
@@ -19,6 +16,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+
+        const { prisma } = await import("@/lib/db");
+        const { compare } = await import("bcrypt");
 
         const email = credentials.email as string;
         const password = credentials.password as string;
@@ -47,19 +47,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = user.role ?? "LEARNER";
+        token.role = (user as Record<string, unknown>).role ?? "LEARNER";
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id;
-        session.user.role = token.role;
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
       }
       return session;
     },
   },
-});
+};
+
+export const { handlers, auth, signIn, signOut } = NextAuth(config);
 
 export async function requireAdmin(session: { user?: { role?: string } } | null) {
   if (!session?.user) {

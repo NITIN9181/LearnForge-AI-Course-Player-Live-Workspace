@@ -5,6 +5,7 @@ export default auth((req) => {
   const { pathname } = req.nextUrl;
   const session = req.auth;
 
+  const isRoot = pathname === "/";
   const isAdminRoute = pathname.startsWith("/admin");
   const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/register");
   const isApiAuthRoute = pathname.startsWith("/api/auth");
@@ -17,7 +18,7 @@ export default auth((req) => {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (session && isAuthRoute) {
+  if (session && (isAuthRoute || isRoot)) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
